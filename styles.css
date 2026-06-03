@@ -1,0 +1,864 @@
+    /* ================================================================ */
+    /*  VARIÁVEIS CSS - PALETA DE CORES                                 */
+    /*  Altere aqui para mudar as cores do site inteiro                 */
+    /* ================================================================ */
+    :root {
+      --bg-primary: #0A0A0A;        /* Fundo principal do site */
+      --bg-secondary: #1A1A1A;      /* Cards, footer, fundos secundários */
+      --accent: #FFD60A;            /* Amarelo de destaque */
+      --accent-dark: #E5C009;       /* Amarelo mais escuro para hover */
+      --text-primary: #FFFFFF;      /* Texto principal */
+      --text-secondary: #B0B0B0;    /* Textos secundários, descrições */
+      --progress-track: #333333;    /* Fundo das barras de progresso */
+      --transition: 0.3s ease;      /* Transição padrão */
+    }
+
+    /* ================================================================ */
+    /*  RESET E ESTILOS BASE                                            */
+    /* ================================================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;      /* Scroll suave ao clicar nos links */
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ================================================================ */
+    /*  UTILITÁRIOS                                                     */
+    /* ================================================================ */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 0.5rem;
+    }
+
+    /* Linha amarela embaixo dos títulos de seção */
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background-color: var(--accent);
+    }
+
+    section {
+      padding: 60px 0;
+    }
+
+    /* ================================================================ */
+    /*  1. NAVBAR FIXA NO TOPO                                          */
+    /*  - Fundo preto com hover amarelo nos links                       */
+    /*  - Mobile: vira menu hamburguer via checkbox hack (sem JS)       */
+    /* ================================================================ */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: var(--bg-primary);
+      border-bottom: 1px solid rgba(255, 214, 10, 0.15);
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    /* Logo/Nome - altere aqui se quiser mudar o texto */
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    /* Menu desktop */
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      position: relative;
+      padding: 5px 0;
+      transition: color var(--transition);
+    }
+
+    /* Hover amarelo nos links */
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent);
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Checkbox hack para menu mobile sem JavaScript */
+    .menu-toggle {
+      display: none;
+    }
+
+    .menu-icon {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .menu-icon span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background-color: var(--text-primary);
+      transition: var(--transition);
+    }
+
+    /* ================================================================ */
+    /*  2. SEÇÃO HOME / HERO                                            */
+    /*  - Título + subtítulo com efeito de digitação                    */
+    /*  - Carrossel de projetos abaixo                                  */
+    /* ================================================================ */
+    .hero {
+      padding-top: 100px; /* Espaço para a navbar fixa */
+      padding-bottom: 40px;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ================================================================ */
+    /*  EFEITO DE DIGITAÇÃO NO SUBTÍTULO                                */
+    /*  Altere o texto em ::after se quiser mudar o subtítulo           */
+    /* ================================================================ */
+    .hero-subtitle {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      min-height: 1.6em;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid var(--accent);
+      animation: typing 4s steps(40, end) 1s both, blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink-caret {
+      50% { border-color: transparent; }
+    }
+
+    /* ================================================================ */
+    /*  CARROSSEL DE PROJETOS — CSS PURO COM RADIO BUTTONS HACK         */
+    /*  Todos os slides têm proporção 16:9 e mesma altura fixa           */
+    /*  object-fit: cover garante que imagens não distorçam              */
+    /* ================================================================ */
+    .carousel {
+      margin-top: 40px;
+      position: relative;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Esconde os inputs radio */
+    .carousel input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* Container dos slides */
+    .carousel-track {
+      display: flex;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 214, 10, 0.2);
+      position: relative;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      transition: transform 0.5s ease;
+      display: none;
+    }
+
+    /* Proporção 16:9 fixa para todos os slides */
+    .slide-image-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 = 9/16 = 0.5625 = 56.25% */
+      overflow: hidden;
+    }
+
+    .slide-image-wrapper img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition);
+    }
+
+    .carousel-slide a:hover img {
+      transform: scale(1.03);
+    }
+
+    .slide-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.9));
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    /* ================================================================ */
+    /*  LÓGICA DO CARROSSEL — Radio buttons controlam os slides         */
+    /*  Os IDs (#slide1, #slide2...) devem corresponder aos labels       */
+    /* ================================================================ */
+    #slide1:checked ~ .carousel-track .carousel-slide:nth-child(1),
+    #slide2:checked ~ .carousel-track .carousel-slide:nth-child(2),
+    #slide3:checked ~ .carousel-track .carousel-slide:nth-child(3) {
+      display: block;
+    }
+
+    /* Setas laterais */
+    .carousel-arrows {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 15px;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .arrow {
+      width: 44px;
+      height: 44px;
+      background-color: rgba(26, 26, 26, 0.85);
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: var(--transition);
+    }
+
+    .arrow:hover {
+      background-color: var(--accent);
+    }
+
+    .arrow:hover svg {
+      stroke: var(--bg-primary);
+    }
+
+    .arrow svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: var(--transition);
+    }
+
+    /* Indicadores de bolinha em amarelo */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      background-color: transparent;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .dot:hover {
+      background-color: rgba(255, 214, 10, 0.4);
+    }
+
+    #slide1:checked ~ .carousel-dots label[for="slide1"],
+    #slide2:checked ~ .carousel-dots label[for="slide2"],
+    #slide3:checked ~ .carousel-dots label[for="slide3"] {
+      background-color: var(--accent);
+    }
+
+    /* ================================================================ */
+    /*  3. CARD PESSOAL                                                 */
+    /*  - Foto redonda, infos à direita, ícones sociais                 */
+    /*  - Borda amarela e fundo #1A1A1A                                */
+    /* ================================================================ */
+    .about-card {
+      background-color: var(--bg-secondary);
+      border: 2px solid var(--accent);
+      border-radius: 16px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    /* Hover nos cards: levanta levemente com sombra amarela */
+    .about-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255, 214, 10, 0.15);
+    }
+
+    .about-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      flex-shrink: 0;
+    }
+
+    .about-info h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .about-info .role {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .about-info .birthdate {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    /* Ícones das redes sociais - SVG inline */
+    .social-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 214, 10, 0.1);
+      border: 1px solid rgba(255, 214, 10, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .social-icon:hover {
+      background-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .social-icon:hover svg {
+      fill: var(--bg-primary);
+    }
+
+    .social-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--accent);
+      transition: var(--transition);
+    }
+
+    /* ================================================================ */
+    /*  4. SEÇÃO HABILIDADES / TECNOLOGIAS                              */
+    /*  - Grid responsivo de cards                                      */
+    /*  - Barra circular de progresso com conic-gradient                */
+    /* ================================================================ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .skill-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid rgba(255, 214, 10, 0.15);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255, 214, 10, 0.1);
+      border-color: rgba(255, 214, 10, 0.4);
+    }
+
+    .skill-icon {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 12px;
+    }
+
+    .skill-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .skill-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+    }
+
+    /* ================================================================ */
+    /*  BARRA DE PROGRESSO CIRCULAR — CSS PURO                          */
+    /*  Usa conic-gradient para desenhar o arco amarelo                 */
+    /*                                                                  */
+    /*  Para alterar a porcentagem, mude o valor de conic-gradient:     */
+    /*  Ex: 50% = 180deg  |  75% = 270deg  |  100% = 360deg             */
+    /*  Fórmula: porcentagem × 3.6 = graus                             */
+    /*                                                                  */
+    /*  Também altere o texto dentro de .progress-text                  */
+    /* ================================================================ */
+    .progress-ring {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--accent) 0deg 180deg,  /* <-- ALTERE AQUI: 180deg = 50% */
+        var(--progress-track) 180deg 360deg
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Círculo interno para criar o efeito de "anel" */
+    .progress-ring::before {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: var(--bg-secondary);
+    }
+
+    .progress-text {
+      position: relative;
+      z-index: 1;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+
+    /* ================================================================ */
+    /*  5. SEÇÃO CERTIFICADOS — BIBLIOTECA                              */
+    /*  Grid: 4 colunas desktop, 2 tablet, 1 mobile                     */
+    /*  Toda estrutura suporta 60+ certificados                         */
+    /* ================================================================ */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .cert-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid rgba(255, 214, 10, 0.12);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(255, 214, 10, 0.12);
+      border-color: rgba(255, 214, 10, 0.35);
+    }
+
+    .cert-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background-color: #2a2a2a;
+    }
+
+    .cert-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition);
+    }
+
+    .cert-card:hover .cert-thumb img {
+      transform: scale(1.05);
+    }
+
+    .cert-info {
+      padding: 16px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cert-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .cert-institution {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+    }
+
+    .cert-btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      transition: var(--transition);
+      margin-top: auto;
+      align-self: flex-start;
+    }
+
+    .cert-btn:hover {
+      background-color: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    /* ================================================================ */
+    /*  6. SEÇÃO HOBBIES                                                */
+    /*  Cards pequenos com ícone + texto, flex wrap                    */
+    /* ================================================================ */
+    .hobbies-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .hobby-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid rgba(255, 214, 10, 0.12);
+      border-radius: 12px;
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .hobby-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 214, 10, 0.1);
+      border-color: rgba(255, 214, 10, 0.3);
+    }
+
+    .hobby-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .hobby-text {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    /* ================================================================ */
+    /*  7. FOOTER                                                       */
+    /*  3 colunas no desktop, fundo #1A1A1A                            */
+    /* ================================================================ */
+    .footer {
+      background-color: var(--bg-secondary);
+      padding: 50px 0 20px;
+      border-top: 1px solid rgba(255, 214, 10, 0.1);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-bottom: 30px;
+    }
+
+    .footer-col h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+
+    .footer-col p,
+    .footer-col a {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 2;
+      display: block;
+      transition: color var(--transition);
+    }
+
+    .footer-col a:hover {
+      color: var(--accent);
+    }
+
+    .footer-col .footer-role {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-bottom p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    /* ================================================================ */
+    /*  RESPONSIVIDADE - MOBILE FIRST                                   */
+  
+    /*  Tablet: 768px                                                   */
+    /* ================================================================ */
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.25rem;
+      }
+
+      .about-card {
+        flex-direction: row;
+        text-align: left;
+        padding: 40px;
+      }
+
+      .about-photo {
+        width: 160px;
+        height: 160px;
+      }
+
+      .social-links {
+        justify-content: flex-start;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .cert-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hobbies-wrap {
+        justify-content: flex-start;
+      }
+    }
+
+    /* ================================================================ */
+    /*  Desktop: 1024px                                                 */
+    /* ================================================================ */
+    @media (min-width: 1024px) {
+      .hero-title {
+        font-size: 3.5rem;
+      }
+
+      .cert-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .arrow {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    /* ================================================================ */
+    /*  MOBILE NAVBAR - Menu hamburguer                                 */
+    /*  Abaixo de 768px, o menu vira hamburguer                         */
+    /* ================================================================ */
+    @media (max-width: 767px) {
+      .menu-icon {
+        display: flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-primary);
+        flex-direction: column;
+        gap: 0;
+        padding: 0 20px;
+        max-height: 0;
+        overflow: hidden;
+        border-bottom: 1px solid transparent;
+        transition: max-height 0.35s ease, padding 0.35s ease, border-color 0.35s ease;
+      }
+
+      .nav-links a {
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255, 214, 10, 0.08);
+        display: block;
+      }
+
+      .nav-links a:last-child {
+        border-bottom: none;
+      }
+
+      /* Quando o checkbox está marcado, expande o menu */
+      .menu-toggle:checked ~ .nav-links {
+        max-height: 400px;
+        padding: 10px 20px;
+        border-bottom-color: rgba(255, 214, 10, 0.15);
+      }
+
+      /* Animação do ícone hamburguer para X */
+      .menu-toggle:checked ~ .menu-icon span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .menu-toggle:checked ~ .menu-icon span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-toggle:checked ~ .menu-icon span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .hero-subtitle {
+        white-space: normal;
+        border-right: none;
+        animation: none;
+      }
+    }
+
+    /* ================================================================ */
+    /*  ANIMAÇÃO DAS BARRAS DE PROGRESSO AO CARREGAR                    */
+    /*  As barras iniciam sem cor e ganham o gradiente com delay        */
+    /* ================================================================ */
+    @keyframes fillProgress {
+      from {
+        background: conic-gradient(
+          var(--accent) 0deg 0deg,
+          var(--progress-track) 0deg 360deg
+        );
+      }
+    }
+
+    .progress-ring.animate {
+      animation: fillProgress 1.2s ease-out forwards;
+    }
