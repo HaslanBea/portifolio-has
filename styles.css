@@ -3,27 +3,38 @@
     /*  Altere aqui para mudar as cores do site inteiro                 */
     /* ================================================================ */
     :root {
-      --bg-primary: #0A0A0A;        /* Fundo principal do site */
-      --bg-secondary: #1A1A1A;      /* Cards, footer, fundos secundários */
-      --accent: #FFD60A;            /* Amarelo de destaque */
-      --accent-dark: #E5C009;       /* Amarelo mais escuro para hover */
-      --text-primary: #FFFFFF;      /* Texto principal */
-      --text-secondary: #B0B0B0;    /* Textos secundários, descrições */
-      --progress-track: #333333;    /* Fundo das barras de progresso */
-      --transition: 0.3s ease;      /* Transição padrão */
+      --bg-primary: #0A0A0A;
+      /* Fundo principal do site */
+      --bg-secondary: #1A1A1A;
+      /* Cards, footer, fundos secundários */
+      --accent: #FFD60A;
+      /* Amarelo de destaque */
+      --accent-dark: #E5C009;
+      /* Amarelo mais escuro para hover */
+      --text-primary: #FFFFFF;
+      /* Texto principal */
+      --text-secondary: #B0B0B0;
+      /* Textos secundários, descrições */
+      --progress-track: #333333;
+      /* Fundo das barras de progresso */
+      --transition: 0.3s ease;
+      /* Transição padrão */
     }
 
     /* ================================================================ */
     /*  RESET E ESTILOS BASE                                            */
     /* ================================================================ */
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
     html {
-      scroll-behavior: smooth;      /* Scroll suave ao clicar nos links */
+      scroll-behavior: smooth;
+      /* Scroll suave ao clicar nos links */
     }
 
     body {
@@ -174,7 +185,8 @@
     /*  - Carrossel de projetos abaixo                                  */
     /* ================================================================ */
     .hero {
-      padding-top: 100px; /* Espaço para a navbar fixa */
+      padding-top: 100px;
+      /* Espaço para a navbar fixa */
       padding-bottom: 40px;
       text-align: center;
     }
@@ -202,12 +214,19 @@
     }
 
     @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 100%;
+      }
     }
 
     @keyframes blink-caret {
-      50% { border-color: transparent; }
+      50% {
+        border-color: transparent;
+      }
     }
 
     /* ================================================================ */
@@ -250,7 +269,8 @@
     .slide-image-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 56.25%; /* 16:9 = 9/16 = 0.5625 = 56.25% */
+      padding-top: 56.25%;
+      /* 16:9 = 9/16 = 0.5625 = 56.25% */
       overflow: hidden;
     }
 
@@ -274,7 +294,7 @@
       left: 0;
       right: 0;
       padding: 20px;
-      background: linear-gradient(transparent, rgba(0,0,0,0.9));
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
       color: var(--text-primary);
       font-weight: 600;
       font-size: 1.1rem;
@@ -284,9 +304,9 @@
     /*  LÓGICA DO CARROSSEL — Radio buttons controlam os slides         */
     /*  Os IDs (#slide1, #slide2...) devem corresponder aos labels       */
     /* ================================================================ */
-    #slide1:checked ~ .carousel-track .carousel-slide:nth-child(1),
-    #slide2:checked ~ .carousel-track .carousel-slide:nth-child(2),
-    #slide3:checked ~ .carousel-track .carousel-slide:nth-child(3) {
+    #slide1:checked~.carousel-track .carousel-slide:nth-child(1),
+    #slide2:checked~.carousel-track .carousel-slide:nth-child(2),
+    #slide3:checked~.carousel-track .carousel-slide:nth-child(3) {
       display: block;
     }
 
@@ -358,9 +378,9 @@
       background-color: rgba(255, 214, 10, 0.4);
     }
 
-    #slide1:checked ~ .carousel-dots label[for="slide1"],
-    #slide2:checked ~ .carousel-dots label[for="slide2"],
-    #slide3:checked ~ .carousel-dots label[for="slide3"] {
+    #slide1:checked~.carousel-dots label[for="slide1"],
+    #slide2:checked~.carousel-dots label[for="slide2"],
+    #slide3:checked~.carousel-dots label[for="slide3"] {
       background-color: var(--accent);
     }
 
@@ -510,11 +530,10 @@
     .progress-ring {
       width: 80px;
       height: 80px;
-      border-radius: 50%;
-      background: conic-gradient(
-        var(--accent) 0deg 180deg,  /* <-- ALTERE AQUI: 180deg = 50% */
-        var(--progress-track) 180deg 360deg
-      );
+      border-radius: 900%;
+      background: conic-gradient(var(--accent) 0deg 180deg,
+          /* <-- ALTERE AQUI: 180deg = 50% */
+          var(--progress-track) 180deg 360deg);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -530,6 +549,54 @@
       height: 60px;
       border-radius: 50%;
       background-color: var(--bg-secondary);
+    }
+
+    /* HTML - 90% */
+    .skill-html {
+      background: conic-gradient(var(--accent) 0deg 324deg,
+          var(--progress-track) 324deg 360deg);
+    }
+
+    /* CSS - 80% */
+    .skill-css {
+      background: conic-gradient(var(--accent) 0deg 288deg,
+          var(--progress-track) 288deg 360deg);
+    }
+
+    /* JavaScript - 100% */
+    .skill-js {
+      background: conic-gradient(var(--accent) 0deg 360deg,
+          var(--progress-track) 360deg 360deg);
+    }
+
+    /* React - 30% */
+    .skill-react {
+      background: conic-gradient(var(--accent) 0deg 108deg,
+          var(--progress-track) 108deg 360deg);
+    }
+
+    /* Git - 100% */
+    .skill-git {
+      background: conic-gradient(var(--accent) 0deg 360deg,
+          var(--progress-track) 360deg 360deg);
+    }
+
+    /* TypeScript - 20% */
+    .skill-ts {
+      background: conic-gradient(var(--accent) 0deg 72deg,
+          var(--progress-track) 72deg 360deg);
+    }
+
+    /* Figma - 40% */
+    .skill-figma {
+      background: conic-gradient(var(--accent) 0deg 144deg,
+          var(--progress-track) 144deg 360deg);
+    }
+
+    /* Node - 45% */
+    .skill-node {
+      background: conic-gradient(var(--accent) 0deg 162deg,
+          var(--progress-track) 162deg 360deg);
     }
 
     .progress-text {
@@ -719,7 +786,7 @@
 
     /* ================================================================ */
     /*  RESPONSIVIDADE - MOBILE FIRST                                   */
-  
+
     /*  Tablet: 768px                                                   */
     /* ================================================================ */
     @media (min-width: 768px) {
@@ -820,22 +887,22 @@
       }
 
       /* Quando o checkbox está marcado, expande o menu */
-      .menu-toggle:checked ~ .nav-links {
+      .menu-toggle:checked~.nav-links {
         max-height: 400px;
         padding: 10px 20px;
         border-bottom-color: rgba(255, 214, 10, 0.15);
       }
 
       /* Animação do ícone hamburguer para X */
-      .menu-toggle:checked ~ .menu-icon span:nth-child(1) {
+      .menu-toggle:checked~.menu-icon span:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
       }
 
-      .menu-toggle:checked ~ .menu-icon span:nth-child(2) {
+      .menu-toggle:checked~.menu-icon span:nth-child(2) {
         opacity: 0;
       }
 
-      .menu-toggle:checked ~ .menu-icon span:nth-child(3) {
+      .menu-toggle:checked~.menu-icon span:nth-child(3) {
         transform: rotate(-45deg) translate(5px, -5px);
       }
 
@@ -852,10 +919,8 @@
     /* ================================================================ */
     @keyframes fillProgress {
       from {
-        background: conic-gradient(
-          var(--accent) 0deg 0deg,
-          var(--progress-track) 0deg 360deg
-        );
+        background: conic-gradient(var(--accent) 0deg 0deg,
+            var(--progress-track) 0deg 360deg);
       }
     }
 
